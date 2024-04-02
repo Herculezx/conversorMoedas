@@ -29,13 +29,13 @@ function convertValues() {
     }).format(inputCurrencyValue / euroToday);
   }
 
-    // Peso ARG convert
-    if (currencySelect.value == "arg") {
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("es-AR", {
-          style: "currency",
-          currency: "ARS",
-        }).format(inputCurrencyValue * argToday);
-      }
+  // Peso ARG convert
+  if (currencySelect.value == "arg") {
+    currencyValueConverted.innerHTML = new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    }).format(inputCurrencyValue * argToday);
+  }
 
   currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -59,7 +59,7 @@ function changeCurrency() {
     currencyImage.src = "/assets/euro.png"
     currencyValue.innerHTML = "0.0 €"
   }
-  
+
   if (currencySelect.value == "arg") {
     currencyName.innerHTML = "Peso Argentino";
     currencyImage.src = "/assets/arg.png"
@@ -73,3 +73,16 @@ function changeCurrency() {
 
 currencySelect.addEventListener("change", changeCurrency);
 convertButton.addEventListener("click", convertValues);
+
+// Import API
+
+import currencyapi from '@everapi/currencyapi-js'
+
+const client = new currencyapi('YOUR-API-KEY')
+
+client.latest({
+  base_currency: 'BRL',
+  currencies: 'EUR, ARS, BRL'
+}).then(response => {
+  console.log(response)
+});
